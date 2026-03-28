@@ -88,7 +88,8 @@ vi.mock("../gateway/call.js", () => ({
   randomIdempotencyKey: () => randomIdempotencyKey(),
 }));
 
-vi.mock("../runtime.js", () => ({
+vi.mock("../runtime.js", async (importOriginal) => ({
+  ...(await importOriginal<typeof import("../runtime.js")>()),
   defaultRuntime,
 }));
 
@@ -186,11 +187,10 @@ describe("nodes-cli coverage", () => {
     });
     expect(invoke?.params?.timeoutMs).toBe(5000);
     const approval = getApprovalRequestCall();
-    expect(approval?.params?.["commandArgv"]).toEqual(["echo", "hi"]);
     expect(approval?.params?.["systemRunPlan"]).toEqual({
       argv: ["echo", "hi"],
       cwd: "/tmp",
-      rawCommand: "echo hi",
+      commandText: "echo hi",
       commandPreview: null,
       agentId: "main",
       sessionKey: null,
@@ -221,11 +221,10 @@ describe("nodes-cli coverage", () => {
       runId: expect.any(String),
     });
     const approval = getApprovalRequestCall();
-    expect(approval?.params?.["commandArgv"]).toEqual(["/bin/sh", "-lc", "echo hi"]);
     expect(approval?.params?.["systemRunPlan"]).toEqual({
       argv: ["/bin/sh", "-lc", "echo hi"],
       cwd: null,
-      rawCommand: '/bin/sh -lc "echo hi"',
+      commandText: '/bin/sh -lc "echo hi"',
       commandPreview: "echo hi",
       agentId: "main",
       sessionKey: null,
