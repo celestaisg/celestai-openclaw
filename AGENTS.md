@@ -229,3 +229,30 @@
 - For manual `openclaw message send` messages that include `!`, use the heredoc pattern noted below to avoid the Bash tool’s escaping.
 - Release guardrails: do not change version numbers without operator’s explicit consent; always ask permission before running any npm publish/release step.
 - Beta release guardrail: when using a beta Git tag (for example `vYYYY.M.D-beta.N`), publish npm with a matching beta version suffix (for example `YYYY.M.D-beta.N`) rather than a plain version on `--tag beta`; otherwise the plain version name gets consumed/blocked.
+
+<!-- celestai-discovery-entry v1 (CR-0340) -->
+## CelestAI governance discovery — `celestai-openclaw` (all AI coding agents)
+
+This section ROUTES; it owns no normative rule (DR-002). CelestAI architecture, security and Git governance live
+once, in the workspace root. In a workspace checkout this repository is `<workspace>/repos/celestai-openclaw/`.
+
+**Read before any change, in order:**
+1. [`../../AGENTS.md`](../../AGENTS.md) — universal bootstrap: read order, authority model, prohibitions, gates,
+   Git (Fast Lane Git V2, DR-136).
+2. [`../../RULE_INDEX.md`](../../RULE_INDEX.md) — Governance Trigger Index; GT-19 for any authority, capability,
+   permission, AI execution, credential, usage or tenant-isolation work.
+3. [`../../docs/governance/checklists/module-authority-and-capability.md`](../../docs/governance/checklists/module-authority-and-capability.md)
+   — Security & Architecture Assurance V1 checklist and the Change Record Security Review.
+4. This repository's README / source for this repository's stack, commands and conventions.
+
+**Governance preflight (required).** Confirm that `../../AGENTS.md` and the checklist above exist. If they do not —
+this repository was opened on its own, outside the workspace — STOP and report
+`GOVERNANCE SOURCE UNAVAILABLE: ../../AGENTS.md not found`. Do not invent, copy or substitute rules; do not change
+code, commit or push. Read-only inspection is allowed. Restore the workspace checkout (repository
+`celestaisg/celestai-workspace`, which places this repository at `repos/celestai-openclaw`) and start again from the workspace
+root.
+
+**Git (DR-136).** Scoped commit + push of verified Change Record work to this repository's development branch
+(`celestai-main`), per root `AGENTS.md` § 4B / § 5 — never force push, rewrite history, reset destructively, delete
+branches or tags, or deploy. Tool adapters (`CLAUDE.md`, Copilot, Gemini, Cursor) route here; none is a normative
+authority.
